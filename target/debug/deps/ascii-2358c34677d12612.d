@@ -1,0 +1,11 @@
+/home/datsimps/projects/interpreter/target/debug/deps/libascii-2358c34677d12612.rmeta: /home/datsimps/.cargo/registry/src/index.crates.io-6f17d22bba15001f/ascii-1.1.0/src/lib.rs /home/datsimps/.cargo/registry/src/index.crates.io-6f17d22bba15001f/ascii-1.1.0/src/ascii_char.rs /home/datsimps/.cargo/registry/src/index.crates.io-6f17d22bba15001f/ascii-1.1.0/src/ascii_str.rs /home/datsimps/.cargo/registry/src/index.crates.io-6f17d22bba15001f/ascii-1.1.0/src/ascii_string.rs /home/datsimps/.cargo/registry/src/index.crates.io-6f17d22bba15001f/ascii-1.1.0/src/free_functions.rs
+
+/home/datsimps/projects/interpreter/target/debug/deps/libascii-2358c34677d12612.rlib: /home/datsimps/.cargo/registry/src/index.crates.io-6f17d22bba15001f/ascii-1.1.0/src/lib.rs /home/datsimps/.cargo/registry/src/index.crates.io-6f17d22bba15001f/ascii-1.1.0/src/ascii_char.rs /home/datsimps/.cargo/registry/src/index.crates.io-6f17d22bba15001f/ascii-1.1.0/src/ascii_str.rs /home/datsimps/.cargo/registry/src/index.crates.io-6f17d22bba15001f/ascii-1.1.0/src/ascii_string.rs /home/datsimps/.cargo/registry/src/index.crates.io-6f17d22bba15001f/ascii-1.1.0/src/free_functions.rs
+
+/home/datsimps/projects/interpreter/target/debug/deps/ascii-2358c34677d12612.d: /home/datsimps/.cargo/registry/src/index.crates.io-6f17d22bba15001f/ascii-1.1.0/src/lib.rs /home/datsimps/.cargo/registry/src/index.crates.io-6f17d22bba15001f/ascii-1.1.0/src/ascii_char.rs /home/datsimps/.cargo/registry/src/index.crates.io-6f17d22bba15001f/ascii-1.1.0/src/ascii_str.rs /home/datsimps/.cargo/registry/src/index.crates.io-6f17d22bba15001f/ascii-1.1.0/src/ascii_string.rs /home/datsimps/.cargo/registry/src/index.crates.io-6f17d22bba15001f/ascii-1.1.0/src/free_functions.rs
+
+/home/datsimps/.cargo/registry/src/index.crates.io-6f17d22bba15001f/ascii-1.1.0/src/lib.rs:
+/home/datsimps/.cargo/registry/src/index.crates.io-6f17d22bba15001f/ascii-1.1.0/src/ascii_char.rs:
+/home/datsimps/.cargo/registry/src/index.crates.io-6f17d22bba15001f/ascii-1.1.0/src/ascii_str.rs:
+/home/datsimps/.cargo/registry/src/index.crates.io-6f17d22bba15001f/ascii-1.1.0/src/ascii_string.rs:
+/home/datsimps/.cargo/registry/src/index.crates.io-6f17d22bba15001f/ascii-1.1.0/src/free_functions.rs:
