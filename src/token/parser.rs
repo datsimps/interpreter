@@ -233,6 +233,13 @@ impl Parser {
             )
         )
     }
+    fn parse_string_literal(&mut self) -> Result<Expression, ParseError> {
+        let output = self.cur_token.clone().to_string();
+        return Ok(
+            Expression::Literal(
+                Literal::String(output)
+            ))
+    }
     fn parse_expression_if(&mut self) -> Result<Expression, ParseError> {
         // if (x>y) {x}
         // if (x>y) {x} else {y}
@@ -326,7 +333,7 @@ impl Parser {
     }
     fn parse_expression_prefix(&mut self) -> Result<Expression, ParseError> {
         // map the token to a prefix operator
-        let prefix_op = match self.cur_token {
+        let prefix_op = match self.cur_token.clone() {
             Token::BANG => PrefixOp::BANG,
             Token::SUBTRACT => PrefixOp::NEGATIVE,
             _ => return Err(ParseError::InvalidToken(self.cur_token.clone())),
@@ -420,8 +427,6 @@ impl Parser {
                 }
             )
         );
-
-
     }
     fn prefix_parser(&self) -> Option<PrefixParserFn> {
         // match the token to the functions we need to use to create expressions
@@ -434,6 +439,7 @@ impl Parser {
                 Token::LPAREN => Parser::parse_grouped_expression,
                 Token::IF => Parser::parse_expression_if,
                 Token::FUNCTION => Parser::parse_expression_function,
+                Token::STRING(_) => Parser::parse_string_literal,
                 _ => return None,
             }
         )
@@ -915,4 +921,33 @@ mod test{
 
         Ok(())
     }
+    #[test]
+    fn test_string_literal_expression() -> Result<(), String> {
+        let input = r#""hello world""#.to_string();
+        
+        let l = Lexer::new(input);
+        let mut p = Parser::new(l);
+        let program = p.parse_program();
+        check_parsing_errors(p);
+        
+        if program.statements.len() != 2 {
+            for i in &program.statements {
+                println!("{}", i);
+            }
+            return Err(format!("Program statements does not contain a single statement, got: {}", program.statements.len()));
+        }
+
+        let values = vec![
+            "hello world",
+        ];
+        for i in 0..values.len() {
+            let statement = program.statements[i as usize].clone();
+            let name = statement.get_expression();
+
+            assert_eq!(values[i].to_string(), name);
+        };
+
+        Ok(())
+    }
+
 }

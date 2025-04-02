@@ -100,7 +100,7 @@ impl Display for Literal {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match self {
             Literal::Int(value) => write!(f, "{value}"),
-            Literal::String(string) => write!(f, "( {string} )"),
+            Literal::String(string) => write!(f, "{string}"),
             Literal::Bool(bool) => write!(f, "{bool}"),
         }
     }

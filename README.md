@@ -1,4 +1,4 @@
-# interpreter
+# Interpreter
 
 ## The Project
 This is an interpreter built in Rust following:
@@ -6,7 +6,9 @@ This is an interpreter built in Rust following:
 
 With the book being written in Go, I am loosely converting it in Rust. So if you
 are following the book and it looks different than mine, that's why. For anyone who
-is trying to do the same, use this as you need and good luck.
+is trying to do the same, use this as you need and good luck. If you get confused (as 
+I definitely did, I included the "update.txt" to work through the Pratt Parser. It's 
+how I learn things, break it down. I hope it helps.
 
 The project is about learning what an interpreter does and the process in which
 it goes about completing its task. It has taught me a great deal about:

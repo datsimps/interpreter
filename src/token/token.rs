@@ -9,6 +9,7 @@ pub enum Token {
     // Identifiers + Literals
     IDENT(String),
     INT(String),
+    STRING(String),
 
     // Operators
     ASSIGN,
@@ -50,6 +51,7 @@ impl std::fmt::Display for Token {
             Token::EOF => write!(f, "EOF"),
             Token::IDENT(string) => write!(f, "IDENT({})", string),
             Token::INT(string) => write!(f, "{}", string),
+            Token::STRING(string) => write!(f, "{}", string),
             Token::ASSIGN => write!(f, "ASSIGN"),
             Token::BANG => write!(f, "BANG"),
             Token::PLUS => write!(f, "PLUS"),
@@ -179,6 +181,10 @@ impl Lexer {
                     Token::GTHAN
                 }
             },
+            b'"' => {
+                let string = self.read_string();
+                return Ok( Token::STRING(string) )
+            }
             b'a'..=b'z' | b'A'..=b'Z' | b'_' => {
                 let ident = self.read_ident();
                 return Ok(match ident.as_str() {
@@ -234,7 +240,21 @@ impl Lexer {
        let output = std::str::from_utf8(&self.input[position..self.position]).unwrap().to_string();
        return output
     }
-    
+    fn read_string(&mut self) -> String {
+        // input = "hello world"
+        //  skip the '"'
+        self.read_char();
+        // input = hello world"
+        let position = self.position;
+        while Lexer::is_still_string(self.ch) {
+            println!("{}", &self.ch);
+            self.read_char();
+        }
+        let output = std::str::from_utf8(&self.input[position..self.position]).unwrap().to_string();
+        self.skip_whitespace();
+        println!("string: {}", &output);
+        return output
+    }
     fn is_number(ch: u8) -> bool {
         if ch >= b'0' && ch <= b'9' {
             return true 
@@ -242,7 +262,13 @@ impl Lexer {
             return false
         }
     }
-
+    fn is_still_string(ch: u8) -> bool {
+        if ch == b'"' || ch == 0 {
+            return false
+        } else {
+            return true 
+        }
+    }
     fn read_number(&mut self) -> String {
         let position = self.position;
         while Lexer::is_number(self.ch) {
@@ -523,5 +549,22 @@ mod test{
         }
         Ok(())
     }
+    
+    #[test]
+    pub fn test_token_string() -> Result<()> {
+        let input = vec![r#""foobar""#, r#""foo bar""#];
 
+        let options = vec![
+                Token::STRING("foobar".to_string()),
+                Token::STRING("foo bar".to_string()),
+        ];
+        
+        for entry in 0..options.len() {
+            let mut lex = Lexer::new(input[entry].to_string());
+            let token = lex.next_token()?;
+            println!("Expected: {entry}, got: {token}");
+            assert_eq!(options[entry], token);
+        }
+        Ok(())
+    }
 }
