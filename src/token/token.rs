@@ -247,7 +247,6 @@ impl Lexer {
         // input = hello world"
         let position = self.position;
         while Lexer::is_still_string(self.ch) {
-            println!("{}", &self.ch);
             self.read_char();
         }
         let output = std::str::from_utf8(&self.input[position..self.position]).unwrap().to_string();

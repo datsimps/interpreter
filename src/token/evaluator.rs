@@ -69,7 +69,6 @@ impl Evalulator {
                         false => Ok(Object::Boolean(Boolean::new(false))),
                     },
                     Literal::String(string) => {
-                        println!("string is : {}", &string);
                         Ok(Object::String(StringObject::new(string)))
                     },
                 },
