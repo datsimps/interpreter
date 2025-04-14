@@ -930,7 +930,7 @@ mod test{
         let program = p.parse_program();
         check_parsing_errors(p);
         
-        if program.statements.len() != 2 {
+        if program.statements.len() != 1 {
             for i in &program.statements {
                 println!("{}", i);
             }

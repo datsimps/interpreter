@@ -13,7 +13,7 @@ pub enum Object {
     Integer(Integer),
     Boolean(Boolean),
     Return(Return),
-    String(String),
+    String(StringObject),
     Error(String),
     Function(Function),
     Null,
@@ -38,8 +38,8 @@ impl ObjectType for Object {
             Object::Integer(int) => return int.inspect(),
             Object::Boolean(bool) => return bool.inspect(),
             Object::Return(ret) => return ret.inspect(),
-            Object::String(string) => return string.clone(),
-            Object::Error(str) => return str.to_string(),
+            Object::String(string) => return string.inspect(),
+            Object::Error(str) => return str.clone(),
             Object::Function(funct) => return funct.inspect(),
             Object::Null => return "Null".to_string(),
         }
@@ -51,7 +51,7 @@ impl Display for Object {
             Object::Integer(int) => int.fmt(f),
             Object::Boolean(bool) => bool.fmt(f),
             Object::Return(ret) => ret.fmt(f),
-            Object::String(string) => write!(f, "String: {}", string),
+            Object::String(string) => string.fmt(f),
             Object::Error(str) => write!(f, "{}", str),
             Object::Function(funct) => funct.fmt(f),
             Object::Null => write!(f, "Null value"),
@@ -120,6 +120,34 @@ impl ObjectType for Boolean {
 impl Display for Boolean {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         write!(f, "Value: {}", &self.value)
+    }
+}
+#[derive(PartialEq, Clone, Debug)]
+pub struct StringObject {
+    pub value: String,
+}
+impl Default for StringObject {
+    fn default() -> Self {
+         StringObject {
+            value: "Empty".to_string(),
+         }
+    }
+}
+impl StringObject {
+    pub fn new(input: String) -> StringObject {
+        let mut st = StringObject::default();
+        st.value = input;
+        st
+    }
+}
+impl ObjectType for StringObject {
+    fn inspect(&self) -> String {
+        return self.value.to_string();
+    }
+}
+impl Display for StringObject {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(f, "{}", &self.value)
     }
 }
 pub struct Null {}

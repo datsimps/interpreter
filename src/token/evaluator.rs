@@ -2,7 +2,7 @@ use std::fmt::Display;
 use crate::token::object::{Object, Integer, Boolean, Return, Environment};
 use crate::token::ast::{Node,Expression,Literal, Program, PrefixOp, Arguments};
 use super::ast::{Statement, InfixOp, BlockStatement, IfExpression, ReturnStatement, LetStatement, FunctionLiteral, CallExpression};
-use super::object::{ObjectType, Function};
+use super::object::{Function, ObjectType, StringObject};
 use std::cell::RefCell;
 use std::rc::Rc;
 
@@ -68,7 +68,10 @@ impl Evalulator {
                         true => Ok(Object::Boolean(Boolean::new(true))),
                         false => Ok(Object::Boolean(Boolean::new(false))),
                     },
-                    Literal::String(_) => unimplemented!(),
+                    Literal::String(string) => {
+                        println!("string is : {}", &string);
+                        Ok(Object::String(StringObject::new(string)))
+                    },
                 },
                 Expression::PrefixExpression(prefix) => {
                     let expression = self.eval(Node::Expression(*prefix.expression.clone()))?;
@@ -334,6 +337,16 @@ mod test{
 
         return true;
     }
+    fn test_string_object(obj: &Object, expected: String) ->  bool {
+        if obj.obj_type() != "String" {
+            return false;
+        }
+        if obj.inspect() != expected {
+            return false;
+        }
+        return true;
+    }
+
     #[test]
     fn test_boolean_expression() -> Result<(), EvalError> {
         let input = vec![
@@ -614,4 +627,19 @@ mod test{
         }
         Ok(())
     }
+    #[test]
+    fn test_string_literal() -> Result<(), EvalError> {
+        let input = r#""hello world!""#.to_string();
+
+        let expected = "hello world!".to_string();
+        let evaluated = test_eval(input)?;
+
+        println!("obj: {:?}", evaluated);
+        if !test_string_object(&evaluated, expected.clone()) {
+            return Err(EvalError::FailedEval(format!("Expected: {}, got: {}", &expected, &evaluated)));
+        }
+
+        Ok(())
+    }
+
 }

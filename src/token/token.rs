@@ -252,7 +252,7 @@ impl Lexer {
         }
         let output = std::str::from_utf8(&self.input[position..self.position]).unwrap().to_string();
         self.skip_whitespace();
-        println!("string: {}", &output);
+        self.read_char();
         return output
     }
     fn is_number(ch: u8) -> bool {
